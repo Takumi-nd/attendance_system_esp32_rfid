@@ -20,11 +20,11 @@
 
 // global variable
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
-const char *ssid = "TP-LINK_7B7A";
-const char *password = "78084063";
-const char *postServer = "https://embwebapp.000webhostapp.com/post-esp-data.php";
-const char *updateServer = "https://embwebapp.000webhostapp.com/update-checkin.php";
-String getServer = "https://embwebapp.000webhostapp.com/get-id.php";
+const char *ssid = "your_wifi";
+const char *password = "your_wifi_password";
+const char *postServer = "https://your_server.com/post-esp-data.php";
+const char *updateServer = "https://your_server.com/update-checkin.php";
+String getServer = "https://your_server.com/get-id.php";
 String apiKeyValue = "tPmAT5Ab3j7F9";
 
 MFRC522 mfrc522(SS_PIN, RST_PIN);
