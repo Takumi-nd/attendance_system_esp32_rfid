@@ -20,11 +20,11 @@
 
 // global variable
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
-const char *ssid = "your_wifi";
-const char *password = "your_wifi_password";
-const char *postServer = "https://your_server.com/post-esp-data.php";
-const char *updateServer = "https://your_server.com/update-checkin.php";
-String getServer = "https://your_server.com/get-id.php";
+const char *ssid = "TP-LINK_7B7A";
+const char *password = "78084063";
+const char *postServer = "https://embwebapp.000webhostapp.com/post-esp-data.php";
+const char *updateServer = "https://embwebapp.000webhostapp.com/update-checkin.php";
+String getServer = "https://embwebapp.000webhostapp.com/get-id.php";
 String apiKeyValue = "tPmAT5Ab3j7F9";
 
 MFRC522 mfrc522(SS_PIN, RST_PIN);
@@ -41,6 +41,7 @@ String phone;
 bool readIdSuccess = false;
 // if Id exist on server isIdExist will be true
 bool isIdExist = false;
+bool httpRequestSuccess = false;
 
 const int shortPressTime = 500;
 const int longPressTime = 1000;
@@ -211,9 +212,8 @@ void rfidProgram()
       readID();
       if (readIdSuccess)
       {
-        Serial.println("debug");
         checkIdExist();
-        if (isIdExist)
+        if (isIdExist && httpRequestSuccess)
         {
           updateCheckin();
         }
@@ -229,7 +229,7 @@ void rfidProgram()
       if (readIdSuccess)
       {
         checkIdExist();
-        if (isIdExist == false)
+        if (isIdExist == false && httpRequestSuccess == true)
         {
           refreshSubScreen();
           newInfo();
@@ -301,7 +301,7 @@ void refreshMainScreen()
 void refreshSubScreen()
 {
   display.display();
-  //delay(1500);
+  delay(1500);
   display.clearDisplay();
 }
 
@@ -413,19 +413,21 @@ void checkIdExist()
     if (httpResponseCode == HTTP_CODE_OK)
     {
       isIdExist = true;
+      httpRequestSuccess = true;
       display.setCursor(0, 22);
       display.print("Cardid found!");
     }
     else
     {
       isIdExist = false;
+      httpRequestSuccess = true;
       display.setCursor(0, 22);
       display.print("Cardid not found!");
     }
   }
   else
   {
-    isIdExist = false;
+    httpRequestSuccess = false;
     display.setCursor(0, 22);
     display.print("Error on HTTP request");
   }
