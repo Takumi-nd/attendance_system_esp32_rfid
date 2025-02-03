@@ -20,8 +20,8 @@
 
 // global variable
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
-const char *ssid = "TP-LINK_7B7A";
-const char *password = "78084063";
+const char *ssid = "NAME_WIFI";
+const char *password = "PASS_WIFI";
 const char *postServer = "https://embwebapp.000webhostapp.com/post-esp-data.php";
 const char *updateServer = "https://embwebapp.000webhostapp.com/update-checkin.php";
 String getServer = "https://embwebapp.000webhostapp.com/get-id.php";
